@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 
 public class SimpleClock extends JFrame implements ActionListener {
@@ -14,11 +15,11 @@ public class SimpleClock extends JFrame implements ActionListener {
         SimpleDateFormat dateFormat;
         SimpleDateFormat tf12;
         SimpleDateFormat tf24;
-    
         JLabel timeLabel;
         JLabel dayLabel;
         JLabel dateLabel;
         JButton formatButton;
+        JButton timeZoneButton;
         String time;
         String day;
         String date;
@@ -46,14 +47,34 @@ public class SimpleClock extends JFrame implements ActionListener {
             dateLabel=new JLabel();
             dateLabel.setFont(new Font("Ink Free",Font.BOLD,30));
 
-            formatButton = new JButton("Change time format");
+            formatButton = new JButton( new AbstractAction("add") {
+                @Override
+                public void actionPerformed( ActionEvent e ) {
+                    // add Action
+                    if(e.getSource() == formatButton) {
+                        if(timeFormat == tf12) {
+                            timeFormat = tf24;
+                        }
+                        else{
+                            timeFormat = tf12;
+                        }
+                    }
+                }
+            });
+
+            formatButton.setText("Change time format");
             formatButton.setFont(new Font("Ink Free", Font.BOLD, 30));
-            formatButton.addActionListener(this);
-    
+            // formatButton.addActionListener();
+
+            timeZoneButton = new JButton("Change timezone");
+            timeZoneButton.setFont(new Font("Ink Free", Font.BOLD, 30));
+            timeZoneButton.addActionListener(this);
+
             this.add(timeLabel);
             this.add(dayLabel);
             this.add(dateLabel);
             this.add(formatButton);
+            this.add(timeZoneButton);
             this.setVisible(true);
     
             setTimer();
@@ -84,13 +105,7 @@ public class SimpleClock extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == formatButton) {
-            if(timeFormat == tf12) {
-                timeFormat = tf24;
-            }
-            else{
-                timeFormat = tf12;
-            }
-        }
+        timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
     }
+
 }
