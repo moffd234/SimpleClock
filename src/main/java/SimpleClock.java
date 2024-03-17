@@ -1,15 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
-public class SimpleClock extends JFrame {
+public class SimpleClock extends JFrame implements ActionListener {
     
         Calendar calendar;
         SimpleDateFormat timeFormat;
         SimpleDateFormat dayFormat;
         SimpleDateFormat dateFormat;
+        SimpleDateFormat tf12;
+        SimpleDateFormat tf24;
     
         JLabel timeLabel;
         JLabel dayLabel;
@@ -25,7 +29,9 @@ public class SimpleClock extends JFrame {
             this.setLayout(new FlowLayout());
             this.setSize(400, 251);
             this.setResizable(false);
-    
+
+            tf12 = new SimpleDateFormat("hh:mm:ss a");
+            tf24 = new SimpleDateFormat("HH:mm:ss a");
             timeFormat = new SimpleDateFormat("hh:mm:ss a");
             dayFormat=new SimpleDateFormat("EEEE");
             dateFormat=new SimpleDateFormat("dd MMMMM, yyyy");
@@ -40,9 +46,9 @@ public class SimpleClock extends JFrame {
             dateLabel=new JLabel();
             dateLabel.setFont(new Font("Ink Free",Font.BOLD,30));
 
-            formatButton = new JButton();
+            formatButton = new JButton("Change time format");
             formatButton.setFont(new Font("Ink Free", Font.BOLD, 30));
-    
+            formatButton.addActionListener(this);
     
             this.add(timeLabel);
             this.add(dayLabel);
@@ -74,4 +80,16 @@ public class SimpleClock extends JFrame {
         public static void main(String[] args) {
             new SimpleClock();
         }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == formatButton) {
+            if(timeFormat == tf12) {
+                timeFormat = tf24;
+            }
+            else{
+                timeFormat = tf12;
+            }
+        }
     }
+}
