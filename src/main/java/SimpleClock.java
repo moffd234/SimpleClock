@@ -14,6 +14,7 @@ public class SimpleClock extends JFrame {
         JLabel timeLabel;
         JLabel dayLabel;
         JLabel dateLabel;
+        JButton formatButton;
         String time;
         String day;
         String date;
@@ -22,7 +23,7 @@ public class SimpleClock extends JFrame {
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setTitle("Digital Clock");
             this.setLayout(new FlowLayout());
-            this.setSize(350, 220);
+            this.setSize(400, 251);
             this.setResizable(false);
     
             timeFormat = new SimpleDateFormat("hh:mm:ss a");
@@ -38,11 +39,15 @@ public class SimpleClock extends JFrame {
     
             dateLabel=new JLabel();
             dateLabel.setFont(new Font("Ink Free",Font.BOLD,30));
+
+            formatButton = new JButton();
+            formatButton.setFont(new Font("Ink Free", Font.BOLD, 30));
     
     
             this.add(timeLabel);
             this.add(dayLabel);
             this.add(dateLabel);
+            this.add(formatButton);
             this.setVisible(true);
     
             setTimer();
