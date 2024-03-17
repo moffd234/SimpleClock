@@ -60,7 +60,7 @@ public class SimpleClock extends JFrame implements ActionListener {
         }
     
         public void setTimer() {
-            while (true) {
+            while (!Thread.currentThread().isInterrupted()) {
                 time = timeFormat.format(Calendar.getInstance().getTime());
                 timeLabel.setText(time);
     
