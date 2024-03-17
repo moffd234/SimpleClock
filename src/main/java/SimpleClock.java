@@ -73,6 +73,7 @@ public class SimpleClock extends JFrame implements ActionListener {
                 try {
                     Thread.sleep(1000);
                 } catch (Exception e) {
+                    Thread.currentThread().isInterrupted();
                     e.getStackTrace();
                 }
             }
