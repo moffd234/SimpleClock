@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -33,14 +34,18 @@ public class SimpleClock extends JFrame implements ActionListener {
 
             tf12 = new SimpleDateFormat("hh:mm:ss a");
             tf24 = new SimpleDateFormat("HH:mm:ss a");
+
             timeFormat = new SimpleDateFormat("hh:mm:ss a");
+
             dayFormat=new SimpleDateFormat("EEEE");
             dateFormat=new SimpleDateFormat("dd MMMMM, yyyy");
+
             timeLabel = new JLabel();
             timeLabel.setFont(new Font("SANS_SERIF", Font.PLAIN, 59));
             timeLabel.setBackground(Color.BLACK);
             timeLabel.setForeground(Color.WHITE);
             timeLabel.setOpaque(true);
+
             dayLabel=new JLabel();
             dayLabel.setFont(new Font("Ink Free",Font.BOLD,34));
     
@@ -105,7 +110,12 @@ public class SimpleClock extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        // Switch between GMT and Local Time (default)
+        if (timeFormat.getTimeZone().equals(TimeZone.getDefault())) {
+            timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        } else {
+            timeFormat.setTimeZone(TimeZone.getDefault());
+        }
     }
 
 }
